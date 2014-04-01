@@ -1,4 +1,4 @@
-/* Compiled by kdc on Tue Apr 01 2014 05:31:52 GMT+0000 (UTC) */
+/* Compiled by kdc on Tue Apr 01 2014 05:55:55 GMT+0000 (UTC) */
 (function() {
 /* KDAPP STARTS */
 /* BLOCK STARTS: /home/gokmen/Applications/Eniac.kdapp/app/customviews/welcomepage.coffee */

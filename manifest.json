@@ -10,7 +10,7 @@
   "author": "Gokmen Goksel",
   "authorNick": "gokmen",
   "repository": "git://github.com/gokmen/Eniac.kdapp.git",
-  "description": "Eniac : Open-source version of Koding's DevTools which provides you to develop new Koding Apps by using Koding API and the Koding Framework.",
+  "description": "Eniac : Open-source version of Koding's DevTools which provides you to develop new Koding Apps by using Koding API and the Koding Framework. [ Still under development ]",
   "category": "web-app",
   "source": {
     "blocks": {
