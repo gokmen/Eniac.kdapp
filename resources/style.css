@@ -1,6 +1,9 @@
 .eniac .kdsplitview-resizer {
   opacity: .1;
 }
+.eniac .ace-find-replace-view {
+  bottom: 0;
+}
 .eniac .panel-1 .kdsplitview-resizer {
   display: block;
 }

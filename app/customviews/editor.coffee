@@ -16,7 +16,7 @@ class EniacEditor extends KDView
 
     @ace      = new Ace
       delegate        : this
-      enableShortcuts : no
+      enableShortcuts : yes
     , file
 
     if content
@@ -63,7 +63,12 @@ class EniacEditor extends KDView
     @ace.setValue content
 
   viewAppended:->
+    
+    @findAndReplaceView = new AceFindAndReplaceView delegate: @
+    @findAndReplaceView.hide()
+    
     @addSubView @ace
+    @addSubView @findAndReplaceView
 
   getValue: ->
     @ace.editor.getSession().getValue()
