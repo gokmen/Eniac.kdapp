@@ -1,0 +1,44 @@
+{
+  "background": false,
+  "behavior": "application",
+  "version": "0.1",
+  "title": "Eniac",
+  "name": "Eniac",
+  "identifier": "com.koding.apps.eniac",
+  "path": "~/Applications/Eniac.kdapp",
+  "homepage": "github.com/gokmen/Eniac.kdapp",
+  "author": "Gokmen Goksel",
+  "authorNick": "gokmen",
+  "repository": "git://github.com/gokmen/Eniac.kdapp.git",
+  "description": "Eniac : Open-source version of Koding's DevTools which provides you to develop new Koding Apps by using Koding API and the Koding Framework.",
+  "category": "web-app",
+  "source": {
+    "blocks": {
+      "app": {
+        "files": [
+          "./app/customviews/welcomepage.coffee",
+          "./app/customviews/errorpane.coffee",
+          "./app/customviews/editor.coffee",
+          "./app/customviews/finder.coffee",
+          
+          "./app/view.coffee",
+          "./app/controller.coffee",
+          
+          "./index.coffee"
+        ]
+      }
+    },
+    "stylesheets": [
+      "./resources/style.css"
+    ]
+  },
+  "options": {
+    "type": "tab"
+  },
+  "icns": {
+    "128": "./resources/icon.128.png"
+  },
+  "screenshots": [],
+  "menu": [],
+  "fileTypes": []
+}

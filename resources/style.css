@@ -1,0 +1,60 @@
+.eniac .kdsplitview-resizer {
+  opacity: .1;
+}
+.eniac .panel-1 .kdsplitview-resizer {
+  display: block;
+}
+.eniac .editor-split .panel-1 {
+  border: none;
+  border-top: 1px solid #185334;
+}
+.eniac .workspace .file-container .vm {
+  border-top: none;
+}
+.eniac .inner-header {
+  background: #282F31 !important;
+  border-bottom: 2px solid #1E2527 !important;
+}
+.eniac .inner-header .title {
+  font-size: 18px;
+  color: #aeb8c2;
+  line-height: 36px;
+  margin-left: 10px;
+}
+.eniac .file-container .jtreeview-wrapper {
+  width: 256px !important;
+}
+
+.eniac.main-view {
+  background: #1E2527;
+}
+
+.eniac .pulsing.loading {
+  width: 128px;
+  height: 128px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -64px 0 0 -64px;
+}
+.eniac .close-link {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  margin-top: 10px;
+  text-align: right;
+  position: relative;
+  right: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.eniac h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.eniac .welcome-pane{top:0;left:0;background:#1f2628;color:#fff;opacity:1;-webkit-transition:top .5s ease , opacity .5s ease;-moz-transition:top .5s ease , opacity .5s ease;transition:top .5s ease , opacity .5s ease;z-index:10000;position:absolute;}
+.eniac .welcome-pane.out{top:100%;opacity:0}
+.eniac .welcome-pane h1{width:400px;margin:0 auto;text-align:center;font-size:24px;margin-top:100px}
+.eniac .welcome-pane .button-container{width:300px;height:auto;text-align:center;margin:50px auto}
