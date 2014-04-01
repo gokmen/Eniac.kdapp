@@ -35,9 +35,7 @@ class EniacFinder extends KDView
           then editor = CSSEditor
           else editor = JSEditor
         
-        editor.ace.setData file
-        editor.ace.setContents contents
-        editor.ace.setSyntax()
+        editor.openFile file, contents
         
         @emit "switchMode", 'develop'
         

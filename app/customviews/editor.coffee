@@ -7,7 +7,7 @@ class EniacEditor extends KDView
 
     @storage = KD.singletons.localStorageController.storage "Eniac"
     @createEditorInstance()
-    
+
   createEditorInstance:->
 
     path      = "localfile:/empty.coffee"
@@ -16,12 +16,12 @@ class EniacEditor extends KDView
 
     @ace      = new Ace
       delegate        : this
-      enableShortcuts : yes
+      enableShortcuts : no
     , file
 
-    if content
-      ace.once "ace.ready", ->
-        ace.editor.setValue content
+    @ace.once "ace.ready", =>
+      if content then @ace.editor.setValue content
+      @prepareEditor()
 
   closeFile:->
     @openFile FSHelper.createFileFromPath 'localfile:/empty.coffee'
@@ -59,8 +59,10 @@ class EniacEditor extends KDView
     then @storage.setValue @_lastFileKey, file.path
     else @storage.unsetKey @_lastFileKey
   
+    @ace.editor.setValue content, -1
+    @ace.setSyntax()
+    
     @setData file
-    @ace.setValue content
 
   viewAppended:->
     
@@ -72,53 +74,27 @@ class EniacEditor extends KDView
 
   getValue: ->
     @ace.editor.getSession().getValue()
+  
+  requestSave:->
+    
+    file    = @getData()
+    return  unless file
+    content = @getValue()
+    
+    file.save content, (err)-> warn err  if err
+    
+  requestSaveAll:->
+    log "save all"
 
-  #  path = (FSHelper.plainPath file.path).replace \
-  #    "/home/#{KD.nick()}/Applications/", ""
-  #  @header.title.updatePartial if not validPath then @_defaultTitle else path
-
-  ###
-  createEditor: (callback)->
-
-    @loadAddons().then =>
-
-      @codeMirrorEditor = CodeMirror @container.getDomElement()[0],
-        lineNumbers     : yes
-        lineWrapping    : yes
-        styleActiveLine : yes
-        scrollPastEnd   : yes
-        cursorHeight    : 1
-        tabSize         : 2
-        mode            : @_mode
-        extraKeys       :
-          "Cmd-S"       : @bound "handleSave"
-          "Ctrl-S"      : @bound "handleSave"
-          "Shift-Cmd-S" : => @emit "SaveAllRequested"
-          "Shift-Ctrl-S": => @emit "SaveAllRequested"
-          "Alt-R"       : => @emit "RunRequested"
-          "Shift-Ctrl-R": => @emit "AutoRunRequested"
-          "Ctrl-Space"  : (cm)->
-            mode = CodeMirror.innerMode(cm.getMode()).mode.name
-            if mode is 'coffeescript'
-              CodeMirror.showHint cm, CodeMirror.coffeescriptHint
-            else if mode is 'css'
-              CodeMirror.showHint cm, CodeMirror.hint.css
-          "Tab"         : (cm)->
-            spaces = Array(cm.getOption("indentUnit") + 1).join " "
-            cm.replaceSelection spaces, "end", "+input"
-
-      @setEditorTheme 'xq-dark'
-      @setEditorMode @_mode ? "coffee"
-
-      callback?()
-
-      @header.addSubView @info = new KDView
-        cssClass : "inline-info"
-        partial  : "saved"
-
-      @on 'EditorDidSave', =>
-        @info.updatePartial 'saved'; @info.setClass 'in'
-        KD.utils.wait 1000, => @info.unsetClass 'in'
-
-      @codeMirrorEditor.on 'focus', => @emit "FocusedOnMe"
-  ###
+  prepareEditor:->
+    
+    @ace.addKeyCombo "save",       "Ctrl-S",       @bound "requestSave"
+    @ace.addKeyCombo "saveAll",    "Ctrl-Shift-S", @bound "requestSaveAll"
+    @ace.addKeyCombo "find",       "Ctrl-F",       @ace.lazyBound "showFindReplaceView", no
+    @ace.addKeyCombo "replace",    "Ctrl-Shift-F", @ace.lazyBound "showFindReplaceView", yes
+    @ace.addKeyCombo "preview",    "Ctrl-Shift-P", => @getDelegate().preview()
+    @ace.addKeyCombo "fullscreen", "Ctrl-Enter",   => @getDelegate().toggleFullscreen()
+    @ace.addKeyCombo "gotoLine",   "Ctrl-G",       @ace.bound "showGotoLine"
+    @ace.addKeyCombo "settings",   "Ctrl-,",       noop # ace creates a settings view for this shortcut, overriding it.
+  
+    @on "PaneResized", _.debounce(=> @ace.editor.resize()) , 400

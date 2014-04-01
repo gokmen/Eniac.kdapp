@@ -74,7 +74,7 @@ class EniacMainView extends KDView
                     type          : "custom"
                     name          : "PreviewPane"
                     title         : "Preview"
-                    paneClass     : JView
+                    paneClass     : KDView
                     cssClass      : "preview-pane"
                   }
                 ]
@@ -98,16 +98,12 @@ class EniacMainView extends KDView
           
           JSEditor.ace.editor.on "change", \
             _.debounce (@lazyBound 'emit', 'previewApp', no), 500
-            
-          @bindShortcuts JSEditor
-            
+
         CSSEditor.ace.once 'ace.ready', =>
           
           CSSEditor.ace.editor.on "change", \
             _.debounce (@lazyBound 'emit', 'previewCss', no), 500
-          
-          @bindShortcuts CSSEditor
-      
+
       KD.utils.defer => @addSubView @workspace
       
     @addSubView @loading
@@ -189,12 +185,3 @@ class EniacMainView extends KDView
       unless @_currentMode is 'home'
         KD.singletons.mainView.appSettingsMenuButton.show()
   
-  bindShortcuts:(pane)->
-    
-    pane.addKeyCombo "save", "Ctrl-S", @bound "requestSave"
-    pane.addKeyCombo "saveAs", "Ctrl-Shift-S", @bound "requestSaveAll"
-    pane.addKeyCombo "find", "Ctrl-F", => @showFindReplaceView no
-    pane.addKeyCombo "replace", "Ctrl-Shift-F", => @showFindReplaceView yes
-    pane.addKeyCombo "preview", "Ctrl-Shift-P", => @getDelegate().preview()
-    pane.addKeyCombo "fullscreen", "Ctrl-Enter", => @getDelegate().toggleFullscreen()
-    pane.addKeyCombo "gotoLine", "Ctrl-G", @bound "showGotoLine"

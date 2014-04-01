@@ -61,3 +61,4 @@
 .eniac .welcome-pane.out{top:100%;opacity:0}
 .eniac .welcome-pane h1{width:400px;margin:0 auto;text-align:center;font-size:24px;margin-top:100px}
 .eniac .welcome-pane .button-container{width:300px;height:auto;text-align:center;margin:50px auto}
+.eniac .preview-pane > .kdview {overflow: auto;}
